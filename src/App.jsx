@@ -1,21 +1,33 @@
 import React from 'react';
-import Login from './components/Login';
+
+import { Box, Container } from '@mui/material';
+
+import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
 
 const code = new URLSearchParams(window.location.search).get('code');
 
 function App() {
   return (
-    <div
-      style={{
-        display: 'flex',
+    <Container
+      maxWidth="false"
+      disableGutters
+      sx={{
         height: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: 'whitesmoke',
       }}
     >
-      {code ? <CreatePlaylistForm code={code} /> : <Login />}
-    </div>
+      <Header code={code} />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {code ? <CreatePlaylistForm code={code} /> : null}
+      </Box>
+    </Container>
   );
 }
 
