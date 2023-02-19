@@ -4,9 +4,7 @@ import { Box, Container } from '@mui/material';
 
 import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
-import Progress from './components/modals/Progress';
-
-// const code = new URLSearchParams(window.location.search).get('code');
+import SearchModal from './components/modals/SearchModal';
 
 function App() {
   const [code, setCode] = useState(
@@ -44,7 +42,7 @@ function App() {
             }}
           />
         ) : null}
-        {loading ? <Progress /> : null}
+        {loading ? <SearchModal /> : null}
       </Box>
     </Container>
   );
