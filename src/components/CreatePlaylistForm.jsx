@@ -12,22 +12,31 @@ import {
 } from '../functions/requests.js';
 import useAuth from '../hooks/useAuth';
 
-const CreatePlaylistForm = ({ code }) => {
+const CreatePlaylistForm = ({ code, setLoading }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const accessToken = useAuth(code);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Search songs
+    setLoading(true);
+
+    const songList = await getSongList(playlistTitle, accessToken);
+    const songListID = getSongsID(songList);
+
+    // Create playlist
     createEmptyPlaylist(playlistTitle, accessToken);
 
     await new Promise((resolve, reject) => setTimeout(resolve, 300));
 
     const playlistID = await getPlaylistID(playlistTitle, accessToken);
 
-    const songList = await getSongList(playlistTitle, accessToken);
-    const songListID = getSongsID(songList);
-
+    // Add songs
     addSongToPlaylist(playlistID, songListID, accessToken);
+
+    setLoading(false);
+
     setPlaylistTitle('');
   };
 
