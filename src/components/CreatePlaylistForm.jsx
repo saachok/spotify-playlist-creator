@@ -15,9 +15,11 @@ import useAuth from '../hooks/useAuth';
 const CreatePlaylistForm = ({ code, setLoading, setError }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const accessToken = useAuth(code);
+  const userInputField = document.querySelector('#outlined-basic');
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    userInputField.blur();
 
     // Search songs
     setLoading(true);

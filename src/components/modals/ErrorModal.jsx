@@ -6,9 +6,9 @@ const ErrorModal = ({ error, setError }) => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={error.status}
-        onClick={() => {
-          setError(false);
-        }}
+        // onClick={() => {
+        //   setError(false);
+        // }}
       >
         <Box
           sx={{
@@ -24,13 +24,15 @@ const ErrorModal = ({ error, setError }) => {
             borderRadius: '1rem',
           }}
         >
-          <Typography variant="h6">{error.name}</Typography>
+          <Typography variant="h6">Error!</Typography>
           <Typography
             variant="body1"
             color="inherit"
             sx={{ textAlign: 'center' }}
           >
-            {error.message}
+            {error.name === 'TypeError'
+              ? "Can't find any match with your entered title."
+              : error.message}
           </Typography>
           <Button
             sx={{
