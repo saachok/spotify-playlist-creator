@@ -12,7 +12,7 @@ import {
 } from '../functions/requests.js';
 import useAuth from '../hooks/useAuth';
 
-const CreatePlaylistForm = ({ code, setLoading }) => {
+const CreatePlaylistForm = ({ code, setLoading, setError }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const accessToken = useAuth(code);
 
@@ -21,19 +21,27 @@ const CreatePlaylistForm = ({ code, setLoading }) => {
 
     // Search songs
     setLoading(true);
+    try {
+      const songList = await getSongList(playlistTitle, accessToken);
+      const songListID = getSongsID(songList);
 
-    const songList = await getSongList(playlistTitle, accessToken);
-    const songListID = getSongsID(songList);
+      // Create playlist
+      createEmptyPlaylist(playlistTitle, accessToken);
 
-    // Create playlist
-    createEmptyPlaylist(playlistTitle, accessToken);
+      await new Promise((resolve, reject) => setTimeout(resolve, 300));
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 300));
+      const playlistID = await getPlaylistID(playlistTitle, accessToken);
 
-    const playlistID = await getPlaylistID(playlistTitle, accessToken);
-
-    // Add songs
-    addSongToPlaylist(playlistID, songListID, accessToken);
+      // Add songs
+      addSongToPlaylist(playlistID, songListID, accessToken);
+    } catch (error) {
+      setLoading(false);
+      setError({
+        status: true,
+        name: error.name,
+        message: error.message,
+      });
+    }
 
     setLoading(false);
 

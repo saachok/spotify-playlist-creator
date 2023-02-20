@@ -1,11 +1,14 @@
 import { Backdrop, Box, Button, Typography } from '@mui/material';
 
-const ErrorModal = ({ setError }) => {
+const ErrorModal = ({ error, setError }) => {
   return (
     <div>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
+        open={error.status}
+        onClick={() => {
+          setError(false);
+        }}
       >
         <Box
           sx={{
@@ -21,21 +24,22 @@ const ErrorModal = ({ setError }) => {
             borderRadius: '1rem',
           }}
         >
-          <Typography variant="h6">Error!</Typography>
+          <Typography variant="h6">{error.name}</Typography>
           <Typography
             variant="body1"
             color="inherit"
             sx={{ textAlign: 'center' }}
           >
-            Can't find "song_title" song label.
+            {error.message}
           </Typography>
           <Button
             sx={{
-              // display: 'block',
               marginLeft: 'auto',
               marginRight: '0',
             }}
-            onClick={setError}
+            onClick={() => {
+              setError(false);
+            }}
           >
             OK
           </Button>

@@ -12,7 +12,11 @@ function App() {
     new URLSearchParams(window.location.search).get('code')
   );
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState({
+    status: false,
+    name: 'initial name',
+    message: 'initial message',
+  });
 
   return (
     <Container
@@ -42,13 +46,18 @@ function App() {
             setLoading={(param) => {
               setLoading(param);
             }}
+            error={error}
+            setError={(param) => {
+              setError(param);
+            }}
           />
         ) : null}
         {loading ? <SearchModal /> : null}
         {error ? (
           <ErrorModal
+            error={error}
             setError={() => {
-              setError(false);
+              setError();
             }}
           />
         ) : null}

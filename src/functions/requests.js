@@ -43,9 +43,7 @@ export const getSongList = async (playlistTitle, accessToken) => {
     let reqSong = `${capitalizeFirstLetter(songsTitles[i])}`;
 
     if (searchOffset >= 1000) {
-      //TODO: Need to change alert() into normal UI info
-      alert(`Can't find song with '${reqSong}' title.`);
-      throw new Error('Too big offset!');
+      throw new Error(`Can't find "${reqSong}" song.`);
     }
 
     const response = await fetch(
