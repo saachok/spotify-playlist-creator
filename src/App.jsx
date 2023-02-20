@@ -4,13 +4,20 @@ import { Box, Container } from '@mui/material';
 
 import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
-
-// const code = new URLSearchParams(window.location.search).get('code');
+import SearchModal from './components/modals/SearchModal';
+import ErrorModal from './components/modals/ErrorModal';
 
 function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
   );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    status: false,
+    name: 'initial name',
+    message: 'initial message',
+  });
+
   return (
     <Container
       maxWidth="false"
@@ -33,7 +40,27 @@ function App() {
           alignItems: 'center',
         }}
       >
-        {code ? <CreatePlaylistForm code={code} /> : null}
+        {code ? (
+          <CreatePlaylistForm
+            code={code}
+            setLoading={(param) => {
+              setLoading(param);
+            }}
+            error={error}
+            setError={(param) => {
+              setError(param);
+            }}
+          />
+        ) : null}
+        {loading ? <SearchModal /> : null}
+        {error ? (
+          <ErrorModal
+            error={error}
+            setError={() => {
+              setError();
+            }}
+          />
+        ) : null}
       </Box>
     </Container>
   );
