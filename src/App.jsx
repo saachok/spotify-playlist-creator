@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Box, Container } from '@mui/material';
+import { Box, Container, ThemeProvider } from '@mui/material';
+import theme from './theme';
 
 import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
@@ -19,50 +20,52 @@ function App() {
   });
 
   return (
-    <Container
-      maxWidth="false"
-      disableGutters
-      sx={{
-        height: '100vh',
-        backgroundColor: 'whitesmoke',
-      }}
-    >
-      <Header
-        code={code}
-        logout={() => {
-          setCode('');
-        }}
-      />
-      <Box
+    <ThemeProvider theme={theme}>
+      <Container
+        maxWidth="false"
+        disableGutters
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          height: '100vh',
+          backgroundColor: 'whitesmoke',
         }}
       >
-        {code ? (
-          <CreatePlaylistForm
-            code={code}
-            setLoading={(param) => {
-              setLoading(param);
-            }}
-            error={error}
-            setError={(param) => {
-              setError(param);
-            }}
-          />
-        ) : null}
-        {loading ? <SearchModal /> : null}
-        {error ? (
-          <ErrorModal
-            error={error}
-            setError={() => {
-              setError();
-            }}
-          />
-        ) : null}
-      </Box>
-    </Container>
+        <Header
+          code={code}
+          logout={() => {
+            setCode('');
+          }}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          {code ? (
+            <CreatePlaylistForm
+              code={code}
+              setLoading={(param) => {
+                setLoading(param);
+              }}
+              error={error}
+              setError={(param) => {
+                setError(param);
+              }}
+            />
+          ) : null}
+          {loading ? <SearchModal /> : null}
+          {error ? (
+            <ErrorModal
+              error={error}
+              setError={() => {
+                setError();
+              }}
+            />
+          ) : null}
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

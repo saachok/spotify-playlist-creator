@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+
+import StyledButton from './styled components/StyledButton';
 
 import {
   AUTH_ENDPOINT,
@@ -20,13 +22,13 @@ export default function Header({ code, logout }) {
           Spotify Playlist Creator
         </Typography>
         {!code ? (
-          <Button color="inherit" href={AUTH_URL}>
+          <StyledButton variant="outlined" href={AUTH_URL}>
             Login
-          </Button>
+          </StyledButton>
         ) : (
-          <Button color="inherit" onClick={logout}>
+          <StyledButton variant="outlined" onClick={logout}>
             Logout
-          </Button>
+          </StyledButton>
         )}
       </Toolbar>
     </AppBar>

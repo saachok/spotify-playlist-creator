@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Box, TextField, Button, Typography } from '@mui/material';
-
+import { Box, TextField, Typography, Paper } from '@mui/material';
+import StyledButton from './styled components/StyledButton.jsx';
 import { getSongsID } from '../functions/dataFormatting.js';
 
 import {
@@ -51,39 +51,49 @@ const CreatePlaylistForm = ({ code, setLoading, setError }) => {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={submitHandler}
+    <Paper
+      elevation={4}
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '25rem',
-        backgroundColor: 'lightgreen',
         marginTop: '4rem',
         borderRadius: '1rem',
-        padding: '1rem',
       }}
-      noValidate
-      autoComplete="off"
     >
-      <Typography variant="h6">Enter playlist title</Typography>
-      <TextField
-        value={playlistTitle}
-        onChange={(e) => setPlaylistTitle(e.target.value)}
-        id="outlined-basic"
-        variant="outlined"
-        label="Playlist title"
-        color="success"
+      <Box
+        component="form"
+        onSubmit={submitHandler}
+        backgroundColor="primary.main"
         sx={{
-          margin: '0.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '25rem',
+          borderRadius: '1rem',
+          padding: '1rem',
         }}
-      />
-      <Button type="submit" variant="contained" color="success">
-        Create
-      </Button>
-    </Box>
+        noValidate
+        autoComplete="off"
+      >
+        <Typography variant="h6" color="primary.contrastText">
+          Enter playlist title
+        </Typography>
+        <TextField
+          value={playlistTitle}
+          onChange={(e) => setPlaylistTitle(e.target.value)}
+          id="outlined-basic"
+          label="Playlist title"
+          color="secondary"
+          focused
+          sx={{
+            input: { color: 'primary.contrastText' },
+            margin: '0.5rem',
+          }}
+        />
+        <StyledButton type="submit" variant="outlined" color="primary">
+          Create
+        </StyledButton>
+      </Box>
+    </Paper>
   );
 };
 
