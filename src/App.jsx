@@ -7,11 +7,13 @@ import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
 import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
+import EmbedPlayer from './components/EmbedPlayer';
 
 function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
   );
+  const [playlistID, setPlaylistID] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     status: false,
@@ -29,12 +31,7 @@ function App() {
           backgroundColor: 'whitesmoke',
         }}
       >
-        <Header
-          code={code}
-          logout={() => {
-            setCode('');
-          }}
-        />
+        <Header code={code} logout={() => setCode('')} />
         <Box
           sx={{
             display: 'flex',
@@ -45,24 +42,15 @@ function App() {
           {code ? (
             <CreatePlaylistForm
               code={code}
-              setLoading={(param) => {
-                setLoading(param);
-              }}
               error={error}
-              setError={(param) => {
-                setError(param);
-              }}
+              setPlaylistID={setPlaylistID}
+              setLoading={setLoading}
+              setError={setError}
             />
           ) : null}
           {loading ? <SearchModal /> : null}
-          {error ? (
-            <ErrorModal
-              error={error}
-              setError={() => {
-                setError();
-              }}
-            />
-          ) : null}
+          {error ? <ErrorModal error={error} setError={setError} /> : null}
+          {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}
         </Box>
       </Container>
     </ThemeProvider>

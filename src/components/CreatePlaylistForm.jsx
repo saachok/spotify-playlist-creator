@@ -12,7 +12,7 @@ import {
 } from '../functions/requests.js';
 import useAuth from '../hooks/useAuth';
 
-const CreatePlaylistForm = ({ code, setLoading, setError }) => {
+const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const accessToken = useAuth(code);
   const userInputField = document.querySelector('#outlined-basic');
@@ -35,7 +35,8 @@ const CreatePlaylistForm = ({ code, setLoading, setError }) => {
       const playlistID = await getPlaylistID(playlistTitle, accessToken);
 
       // Add songs
-      addSongToPlaylist(playlistID, songListID, accessToken);
+      await addSongToPlaylist(playlistID, songListID, accessToken);
+      setPlaylistID(playlistID);
     } catch (error) {
       setLoading(false);
       setError({
