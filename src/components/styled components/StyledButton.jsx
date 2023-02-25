@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-const StyledButton = ({ children, color, variant, onClick, href }) => {
+const StyledButton = ({ children, color, variant, onClick, href, type }) => {
   return (
     <Button
       color={color}
       variant={variant}
       onClick={onClick}
       href={href}
+      type={type}
       sx={{
         color: '#fff',
         textTransform: 'none',

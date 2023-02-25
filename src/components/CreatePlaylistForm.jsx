@@ -54,7 +54,12 @@ const CreatePlaylistForm = ({ code, setLoading, setError }) => {
     <Paper
       elevation={4}
       sx={{
-        marginTop: '4rem',
+        marginTop: {
+          xs: '1rem',
+          sm: '2rem',
+          md: '3rem',
+          lg: '4rem',
+        },
         borderRadius: '1rem',
       }}
     >
@@ -67,7 +72,10 @@ const CreatePlaylistForm = ({ code, setLoading, setError }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '25rem',
+          width: {
+            xs: '20rem',
+            sm: '25rem',
+          },
           borderRadius: '1rem',
           padding: '1rem',
         }}
