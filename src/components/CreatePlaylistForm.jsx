@@ -9,7 +9,9 @@ import {
   getPlaylistID,
   getSongList,
   addSongToPlaylist,
+  setPlaylistCover,
 } from '../functions/requests.js';
+
 import useAuth from '../hooks/useAuth';
 
 const CreatePlaylistForm = ({ code, setLoading, setError }) => {
@@ -33,9 +35,10 @@ const CreatePlaylistForm = ({ code, setLoading, setError }) => {
       await new Promise((resolve, reject) => setTimeout(resolve, 300));
 
       const playlistID = await getPlaylistID(playlistTitle, accessToken);
+      await setPlaylistCover(playlistID, accessToken);
 
       // Add songs
-      addSongToPlaylist(playlistID, songListID, accessToken);
+      await addSongToPlaylist(playlistID, songListID, accessToken);
     } catch (error) {
       setLoading(false);
       setError({

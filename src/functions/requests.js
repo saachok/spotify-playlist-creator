@@ -1,5 +1,5 @@
 import { getTrackList, capitalizeFirstLetter } from './dataFormatting.js';
-
+import logo from '../Spotify_Icon_RGB_Green.png';
 export const createEmptyPlaylist = async (playlistTitle, accessToken) => {
   fetch(`https://api.spotify.com/v1/me/playlists`, {
     method: 'POST',
@@ -82,5 +82,21 @@ export const addSongToPlaylist = async (playlistID, tracks, accessToken) => {
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(tracks),
+  });
+};
+
+export const setPlaylistCover = async (playlistID, accessToken) => {
+  fetch(`https://api.spotify.com/v1/playlists/${playlistID}/images`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      // forums said that it should be encoded in base64 format
+      url: 'https://play-lh.googleusercontent.com/P2VMEenhpIsubG2oWbvuLGrs0GyyzLiDosGTg8bi8htRXg9Uf0eUtHiUjC28p1jgHzo',
+      height: 300,
+      width: 300,
+    }),
   });
 };
