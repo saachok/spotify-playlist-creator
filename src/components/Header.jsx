@@ -11,14 +11,17 @@ import {
   RESPONSE_TYPE,
   SCOPES,
 } from '../constants';
+import UserIcon from './UserIcon';
 
 const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
 
 export default function Header({ code, logout, theme, setThemeMode }) {
   const toggleTheme = () => {
     if (theme === 'dark') {
+      window.localStorage.setItem('mode', 'light');
       setThemeMode('light');
     } else {
+      window.localStorage.setItem('mode', 'dark');
       setThemeMode('dark');
     }
   };
@@ -43,18 +46,19 @@ export default function Header({ code, logout, theme, setThemeMode }) {
             Login
           </StyledButton>
         ) : (
-          <Stack direction={'row'} gap={2}>
-            <StyledButton
-              variant="outlined"
-              color="inherit"
-              onClick={toggleTheme}
-            >
-              Switch theme
-            </StyledButton>
-            <StyledButton variant="outlined" color="inherit" onClick={logout}>
-              Logout
-            </StyledButton>
-          </Stack>
+          <UserIcon toggleTheme={toggleTheme} logout={logout} />
+          // <Stack direction={'row'} gap={2}>
+          //   <StyledButton
+          //     variant="outlined"
+          //     color="inherit"
+          //     onClick={toggleTheme}
+          //   >
+          //     Switch theme
+          //   </StyledButton>
+          //   <StyledButton variant="outlined" color="inherit" onClick={logout}>
+          //     Logout
+          //   </StyledButton>
+          // </Stack>
         )}
       </Stack>
     </Paper>

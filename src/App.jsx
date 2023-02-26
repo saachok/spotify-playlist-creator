@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Box, Container, ThemeProvider } from '@mui/material';
 import getTheme from './theme';
@@ -13,7 +13,9 @@ function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
   );
-  const [themeMode, setThemeMode] = useState('dark');
+  const [themeMode, setThemeMode] = useState(
+    window.localStorage.getItem('mode')
+  );
   const [playlistID, setPlaylistID] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -21,6 +23,13 @@ function App() {
     name: 'initial name',
     message: 'initial message',
   });
+
+  useEffect(() => {
+    if (!themeMode) {
+      window.localStorage.setItem('mode', 'dark');
+      setThemeMode('dark');
+    }
+  }, [themeMode]);
 
   return (
     <ThemeProvider theme={getTheme(themeMode)}>
