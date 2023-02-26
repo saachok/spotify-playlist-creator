@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Box, Container, ThemeProvider } from '@mui/material';
-import theme from './theme';
+import getTheme from './theme';
 
 import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
@@ -13,6 +13,9 @@ function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
   );
+  const [themeMode, setThemeMode] = useState(
+    window.localStorage.getItem('mode')
+  );
   const [playlistID, setPlaylistID] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -21,17 +24,29 @@ function App() {
     message: 'initial message',
   });
 
+  useEffect(() => {
+    if (!themeMode) {
+      window.localStorage.setItem('mode', 'dark');
+      setThemeMode('dark');
+    }
+  }, [themeMode]);
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={getTheme(themeMode)}>
       <Container
         maxWidth="false"
         disableGutters
         sx={{
+          backgroundColor: 'primary.light',
           height: '100vh',
-          backgroundColor: 'whitesmoke',
         }}
       >
-        <Header code={code} logout={() => setCode('')} />
+        <Header
+          code={code}
+          theme={themeMode}
+          logout={() => setCode('')}
+          setThemeMode={setThemeMode}
+        />
         <Box
           sx={{
             display: 'flex',

@@ -1,21 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
 import { getSongsID } from '../functions/dataFormatting.js';
+import useAuth from '../hooks/useAuth';
 
 import {
   createEmptyPlaylist,
   getPlaylistID,
   getSongList,
   addSongToPlaylist,
+  // getUserAvatar,
 } from '../functions/requests.js';
-import useAuth from '../hooks/useAuth';
 
-const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
+const CreatePlaylistForm = ({
+  code,
+  setLoading,
+  setError,
+  setPlaylistID,
+  // setUserAvatar,
+}) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
-  const accessToken = useAuth(code);
   const userInputField = document.querySelector('#outlined-basic');
+  const accessToken = useAuth(code);
+  // const fetchUserAvatar = async () => {
+  //   const userAvatar = await getUserAvatar(accessToken);
+  //   setUserAvatar(userAvatar);
+  // };
+
+  // useEffect(() => {
+  //   setTimeout(fetchUserAvatar, 1000);
+  // }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -55,19 +70,15 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
     <Paper
       elevation={4}
       sx={{
-        marginTop: {
-          xs: '1rem',
-          sm: '2rem',
-          md: '3rem',
-          lg: '4rem',
-        },
+        marginTop: '1rem',
+        bgcolor: 'primary.main',
         borderRadius: '1rem',
       }}
     >
       <Box
         component="form"
         onSubmit={submitHandler}
-        backgroundColor="primary.main"
+        color={'primary.contrastText'}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -83,9 +94,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
         noValidate
         autoComplete="off"
       >
-        <Typography variant="h6" color="primary.contrastText">
-          Enter playlist title
-        </Typography>
+        <Typography variant="h6">Enter playlist title</Typography>
         <TextField
           value={playlistTitle}
           onChange={(e) => setPlaylistTitle(e.target.value)}
@@ -98,7 +107,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
             margin: '0.5rem',
           }}
         />
-        <StyledButton type="submit" variant="outlined" color="primary">
+        <StyledButton type="submit" variant="outlined" color="inherit">
           Create
         </StyledButton>
       </Box>

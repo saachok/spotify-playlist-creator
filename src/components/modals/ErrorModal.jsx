@@ -1,4 +1,5 @@
-import { Backdrop, Box, Button, Typography } from '@mui/material';
+import { Backdrop, Box, Typography } from '@mui/material';
+import StyledButton from '../styled components/StyledButton';
 
 const ErrorModal = ({ error, setError }) => {
   return (
@@ -6,9 +7,6 @@ const ErrorModal = ({ error, setError }) => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={error.status}
-        // onClick={() => {
-        //   setError(false);
-        // }}
       >
         <Box
           sx={{
@@ -34,17 +32,19 @@ const ErrorModal = ({ error, setError }) => {
               ? "Can't find any match with your entered title."
               : error.message}
           </Typography>
-          <Button
-            sx={{
-              marginLeft: 'auto',
-              marginRight: '0',
-            }}
+          <StyledButton
+            variant={'outlined'}
             onClick={() => {
               setError(false);
             }}
+            sx={{
+              '&: hover': {
+                backgroundColor: 'rgb(200,200,200)',
+              },
+            }}
           >
             OK
-          </Button>
+          </StyledButton>
         </Box>
       </Backdrop>
     </div>

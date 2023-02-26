@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Paper } from '@mui/material';
 
 const EmbedPlayer = ({ playlistID }) => {
   return (
-    <Box
+    <Paper
+      elevation={4}
       sx={{
+        backgroundColor: 'primary.light',
         borderRadius: '1rem',
         width: { xs: '22rem', sm: '27rem', md: '32rem', lg: '37rem' },
-        height: '352px',
+        height: '28rem',
         margin: '1rem',
       }}
     >
@@ -22,9 +24,8 @@ const EmbedPlayer = ({ playlistID }) => {
         frameBorder=""
         allowFullScreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
       />
-    </Box>
+    </Paper>
   );
 };
 
