@@ -1,7 +1,15 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-const StyledButton = ({ children, color, variant, onClick, href, type }) => {
+const StyledButton = ({
+  children,
+  color,
+  variant,
+  onClick,
+  href,
+  type,
+  sx,
+}) => {
   return (
     <Button
       color={color}
@@ -10,6 +18,7 @@ const StyledButton = ({ children, color, variant, onClick, href, type }) => {
       href={href}
       type={type}
       sx={{
+        ...sx,
         textTransform: 'none',
         borderRadius: '2rem',
       }}
