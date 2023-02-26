@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Box, Container, ThemeProvider } from '@mui/material';
-import theme from './theme';
+import getTheme from './theme';
 
 import Header from './components/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
@@ -9,17 +9,11 @@ import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
 import EmbedPlayer from './components/EmbedPlayer';
 
-const primary = {
-  light: '#4ac776',
-  main: '#1db954',
-  dark: '#14813a',
-  contrastText: '#fff',
-};
-
 function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
   );
+  const [themeMode, setThemeMode] = useState('dark');
   const [playlistID, setPlaylistID] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
@@ -29,15 +23,21 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={getTheme(themeMode)}>
       <Container
         maxWidth="false"
         disableGutters
         sx={{
+          backgroundColor: 'primary.light',
           height: '100vh',
         }}
       >
-        <Header code={code} logout={() => setCode('')} />
+        <Header
+          code={code}
+          logout={() => setCode('')}
+          theme={themeMode}
+          setThemeMode={setThemeMode}
+        />
         <Box
           sx={{
             display: 'flex',
@@ -56,8 +56,7 @@ function App() {
           ) : null}
           {loading ? <SearchModal /> : null}
           {error ? <ErrorModal error={error} setError={setError} /> : null}
-          <EmbedPlayer playlistID={'4SVlxJJxBuMu5B1wUnaMQU'} />
-          {/* {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null} */}
+          {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}
         </Box>
       </Container>
     </ThemeProvider>

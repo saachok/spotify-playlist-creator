@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, TextField, Typography, Paper, Button } from '@mui/material';
+import { Box, TextField, Typography, Paper } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
 import { getSongsID } from '../functions/dataFormatting.js';
 
@@ -36,7 +36,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
 
       // Add songs
       await addSongToPlaylist(playlistID, songListID, accessToken);
-      // setPlaylistID(playlistID);
+      setPlaylistID(playlistID);
     } catch (error) {
       setLoading(false);
       setError({

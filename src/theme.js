@@ -1,7 +1,5 @@
 import { createTheme } from '@mui/material';
 
-const mode = 'dark';
-
 const lightPalette = {
   primary: {
     light: '#4ac776',
@@ -26,25 +24,28 @@ const darkPalette = {
   },
 };
 
-const theme = createTheme({
-  palette: mode === 'light' ? lightPalette : darkPalette,
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          '&: hover': {
-            backgroundColor:
-              mode === 'light'
-                ? `${lightPalette.primary.light}`
-                : `${darkPalette.primary.light}`,
+const getTheme = (mode) => {
+  const theme = createTheme({
+    palette: mode === 'light' ? lightPalette : darkPalette,
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            '&: hover': {
+              backgroundColor:
+                mode === 'light'
+                  ? `${lightPalette.primary.light}`
+                  : `${darkPalette.primary.light}`,
+            },
           },
         },
-      },
-      defaultProps: {
-        disableElevation: true,
+        defaultProps: {
+          disableElevation: true,
+        },
       },
     },
-  },
-});
+  });
+  return theme;
+};
 
-export default theme;
+export default getTheme;
