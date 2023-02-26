@@ -9,6 +9,13 @@ import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
 import EmbedPlayer from './components/EmbedPlayer';
 
+const primary = {
+  light: '#4ac776',
+  main: '#1db954',
+  dark: '#14813a',
+  contrastText: '#fff',
+};
+
 function App() {
   const [code, setCode] = useState(
     new URLSearchParams(window.location.search).get('code')
@@ -28,7 +35,6 @@ function App() {
         disableGutters
         sx={{
           height: '100vh',
-          backgroundColor: 'whitesmoke',
         }}
       >
         <Header code={code} logout={() => setCode('')} />
@@ -50,7 +56,8 @@ function App() {
           ) : null}
           {loading ? <SearchModal /> : null}
           {error ? <ErrorModal error={error} setError={setError} /> : null}
-          {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}
+          <EmbedPlayer playlistID={'4SVlxJJxBuMu5B1wUnaMQU'} />
+          {/* {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null} */}
         </Box>
       </Container>
     </ThemeProvider>

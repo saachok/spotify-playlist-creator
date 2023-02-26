@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, TextField, Typography, Paper } from '@mui/material';
+import { Box, TextField, Typography, Paper, Button } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
 import { getSongsID } from '../functions/dataFormatting.js';
 
@@ -36,7 +36,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
 
       // Add songs
       await addSongToPlaylist(playlistID, songListID, accessToken);
-      setPlaylistID(playlistID);
+      // setPlaylistID(playlistID);
     } catch (error) {
       setLoading(false);
       setError({
@@ -55,19 +55,15 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
     <Paper
       elevation={4}
       sx={{
-        marginTop: {
-          xs: '1rem',
-          sm: '2rem',
-          md: '3rem',
-          lg: '4rem',
-        },
+        marginTop: '1rem',
+        bgcolor: 'primary.main',
         borderRadius: '1rem',
       }}
     >
       <Box
         component="form"
         onSubmit={submitHandler}
-        backgroundColor="primary.main"
+        color={'primary.contrastText'}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -83,9 +79,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
         noValidate
         autoComplete="off"
       >
-        <Typography variant="h6" color="primary.contrastText">
-          Enter playlist title
-        </Typography>
+        <Typography variant="h6">Enter playlist title</Typography>
         <TextField
           value={playlistTitle}
           onChange={(e) => setPlaylistTitle(e.target.value)}
@@ -98,7 +92,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
             margin: '0.5rem',
           }}
         />
-        <StyledButton type="submit" variant="outlined" color="primary">
+        <StyledButton type="submit" variant="outlined" color="inherit">
           Create
         </StyledButton>
       </Box>

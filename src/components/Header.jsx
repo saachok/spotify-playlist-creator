@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { AppBar, Typography } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 
 import StyledButton from './styled components/StyledButton';
 
@@ -16,27 +16,28 @@ const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPON
 
 export default function Header({ code, logout }) {
   return (
-    <AppBar
-      position="static"
+    <Stack
+      flexDirection={'row'}
+      color={'primary.contrastText'}
       sx={{
+        bgcolor: 'primary.main',
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '4rem',
+        height: '2rem',
         padding: '1rem',
       }}
     >
       <Typography variant="h6">Spotify Playlist Creator</Typography>
       {!code ? (
-        <StyledButton variant="outlined" href={AUTH_URL}>
+        <StyledButton variant="outlined" color="inherit" href={AUTH_URL}>
           Login
         </StyledButton>
       ) : (
-        <StyledButton variant="outlined" onClick={logout}>
+        <StyledButton variant="outlined" color="inherit" onClick={logout}>
           Logout
         </StyledButton>
       )}
-    </AppBar>
+    </Stack>
   );
 }
