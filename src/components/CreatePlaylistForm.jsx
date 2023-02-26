@@ -1,21 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
 import { getSongsID } from '../functions/dataFormatting.js';
+import useAuth from '../hooks/useAuth';
 
 import {
   createEmptyPlaylist,
   getPlaylistID,
   getSongList,
   addSongToPlaylist,
+  // getUserAvatar,
 } from '../functions/requests.js';
-import useAuth from '../hooks/useAuth';
 
-const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
+const CreatePlaylistForm = ({
+  code,
+  setLoading,
+  setError,
+  setPlaylistID,
+  // setUserAvatar,
+}) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
-  const accessToken = useAuth(code);
   const userInputField = document.querySelector('#outlined-basic');
+  const accessToken = useAuth(code);
+  // const fetchUserAvatar = async () => {
+  //   const userAvatar = await getUserAvatar(accessToken);
+  //   setUserAvatar(userAvatar);
+  // };
+
+  // useEffect(() => {
+  //   setTimeout(fetchUserAvatar, 1000);
+  // }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();

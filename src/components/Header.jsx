@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import { Typography, Stack, Paper } from '@mui/material';
 
@@ -15,7 +15,7 @@ import UserIcon from './UserIcon';
 
 const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
 
-export default function Header({ code, logout, theme, setThemeMode }) {
+const Header = ({ code, logout, theme, setThemeMode }) => {
   const toggleTheme = () => {
     if (theme === 'dark') {
       window.localStorage.setItem('mode', 'light');
@@ -25,6 +25,7 @@ export default function Header({ code, logout, theme, setThemeMode }) {
       setThemeMode('dark');
     }
   };
+
   return (
     <Paper elevation={4}>
       <Stack
@@ -46,7 +47,11 @@ export default function Header({ code, logout, theme, setThemeMode }) {
             Login
           </StyledButton>
         ) : (
-          <UserIcon toggleTheme={toggleTheme} logout={logout} />
+          <UserIcon
+            toggleTheme={toggleTheme}
+            logout={logout}
+            // userPhoto={userAvatar}
+          />
           // <Stack direction={'row'} gap={2}>
           //   <StyledButton
           //     variant="outlined"
@@ -63,4 +68,6 @@ export default function Header({ code, logout, theme, setThemeMode }) {
       </Stack>
     </Paper>
   );
-}
+};
+
+export default Header;

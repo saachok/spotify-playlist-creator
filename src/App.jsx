@@ -43,8 +43,8 @@ function App() {
       >
         <Header
           code={code}
-          logout={() => setCode('')}
           theme={themeMode}
+          logout={() => setCode('')}
           setThemeMode={setThemeMode}
         />
         <Box

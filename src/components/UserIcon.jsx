@@ -10,7 +10,7 @@ import Logout from '@mui/icons-material/Logout';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function UserIcon({ toggleTheme, logout }) {
+export default function UserIcon({ toggleTheme, logout, userPhoto }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -31,7 +31,7 @@ export default function UserIcon({ toggleTheme, logout }) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }} src={userPhoto}></Avatar>
           </IconButton>
         </Tooltip>
       </Box>

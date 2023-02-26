@@ -84,3 +84,17 @@ export const addSongToPlaylist = async (playlistID, tracks, accessToken) => {
     body: JSON.stringify(tracks),
   });
 };
+
+export const getUserAvatar = async (accessToken) => {
+  const response = await fetch(`https://api.spotify.com/v1/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+  const userAvatar = data.images[0].url;
+  return userAvatar;
+};
