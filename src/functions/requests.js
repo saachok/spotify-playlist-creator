@@ -1,4 +1,8 @@
-import { getTrackList, capitalizeFirstLetter } from './dataFormatting.js';
+import {
+  getTrackList,
+  capitalizeFirstLetter,
+  getSongsID,
+} from './dataFormatting.js';
 
 export const createEmptyPlaylist = async (playlistTitle, accessToken) => {
   fetch(`https://api.spotify.com/v1/me/playlists`, {
@@ -62,7 +66,6 @@ export const getSongList = async (playlistTitle, accessToken) => {
     const track = data.tracks.items.find((element) => {
       return element.name.toLowerCase() === reqSong.toLowerCase();
     });
-    console.log(track);
     if (!track) {
       searchOffset += 50;
       i--;
@@ -94,7 +97,22 @@ export const getUserAvatar = async (accessToken) => {
     },
   });
   const data = await response.json();
-  console.log(data);
-  const userAvatar = data.images[0].url;
-  return userAvatar;
+  return data.images[0].url;
+};
+
+export const createPlaylist = async (playlistTitle, accessToken) => {
+  // Search songs
+  const songList = await getSongList(playlistTitle, accessToken);
+  const songListID = getSongsID(songList);
+
+  // if ok => create playlist
+  createEmptyPlaylist(playlistTitle, accessToken);
+
+  // Wait until Spotify create playlist on backend
+  await new Promise((resolve, reject) => setTimeout(resolve, 300));
+
+  const playlistID = await getPlaylistID(playlistTitle, accessToken);
+
+  // Add song to new playlist
+  await addSongToPlaylist(playlistID, songListID, accessToken);
 };

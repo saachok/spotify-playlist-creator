@@ -1,7 +1,4 @@
-export const getTrackList = (playlistTitle) => {
-  const tracks = playlistTitle.split(' ');
-  return tracks;
-};
+export const getTrackList = (playlistTitle) => playlistTitle.split(' ');
 
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);

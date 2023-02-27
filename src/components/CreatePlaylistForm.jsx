@@ -1,56 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
-import { getSongsID } from '../functions/dataFormatting.js';
+
+import { getPlaylistID, createPlaylist } from '../functions/requests.js';
+
 import useAuth from '../hooks/useAuth';
 
-import {
-  createEmptyPlaylist,
-  getPlaylistID,
-  getSongList,
-  addSongToPlaylist,
-  // getUserAvatar,
-} from '../functions/requests.js';
-
-const CreatePlaylistForm = ({
-  code,
-  setLoading,
-  setError,
-  setPlaylistID,
-  // setUserAvatar,
-}) => {
+const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const userInputField = document.querySelector('#outlined-basic');
   const accessToken = useAuth(code);
-  // const fetchUserAvatar = async () => {
-  //   const userAvatar = await getUserAvatar(accessToken);
-  //   setUserAvatar(userAvatar);
-  // };
-
-  // useEffect(() => {
-  //   setTimeout(fetchUserAvatar, 1000);
-  // }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     userInputField.blur();
 
-    // Search songs
     setLoading(true);
     try {
-      const songList = await getSongList(playlistTitle, accessToken);
-      const songListID = getSongsID(songList);
-
-      // Create playlist
-      createEmptyPlaylist(playlistTitle, accessToken);
-
-      await new Promise((resolve, reject) => setTimeout(resolve, 300));
+      await createPlaylist(playlistTitle, accessToken);
 
       const playlistID = await getPlaylistID(playlistTitle, accessToken);
-
-      // Add songs
-      await addSongToPlaylist(playlistID, songListID, accessToken);
       setPlaylistID(playlistID);
     } catch (error) {
       setLoading(false);

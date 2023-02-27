@@ -1,8 +1,6 @@
-import { useState } from 'react';
-
 import { Typography, Stack, Paper } from '@mui/material';
-
 import StyledButton from './styled components/StyledButton';
+import UserIcon from './UserIcon';
 
 import {
   AUTH_ENDPOINT,
@@ -11,7 +9,6 @@ import {
   RESPONSE_TYPE,
   SCOPES,
 } from '../constants';
-import UserIcon from './UserIcon';
 
 const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
 
@@ -47,23 +44,7 @@ const Header = ({ code, logout, theme, setThemeMode }) => {
             Login
           </StyledButton>
         ) : (
-          <UserIcon
-            toggleTheme={toggleTheme}
-            logout={logout}
-            // userPhoto={userAvatar}
-          />
-          // <Stack direction={'row'} gap={2}>
-          //   <StyledButton
-          //     variant="outlined"
-          //     color="inherit"
-          //     onClick={toggleTheme}
-          //   >
-          //     Switch theme
-          //   </StyledButton>
-          //   <StyledButton variant="outlined" color="inherit" onClick={logout}>
-          //     Logout
-          //   </StyledButton>
-          // </Stack>
+          <UserIcon toggleTheme={toggleTheme} logout={logout} />
         )}
       </Stack>
     </Paper>
