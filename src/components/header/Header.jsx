@@ -1,16 +1,6 @@
 import { Typography, Stack, Paper } from '@mui/material';
-import StyledButton from './styled components/StyledButton';
+import LoginButton from './LoginButton';
 import UserIcon from './UserIcon';
-
-import {
-  AUTH_ENDPOINT,
-  CLIENT_ID,
-  REDIRECT_URI,
-  RESPONSE_TYPE,
-  SCOPES,
-} from '../constants';
-
-const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
 
 const Header = ({ code, logout, theme, setThemeMode }) => {
   const toggleTheme = () => {
@@ -40,9 +30,7 @@ const Header = ({ code, logout, theme, setThemeMode }) => {
       >
         <Typography variant="h6">Spotify Playlist Creator</Typography>
         {!code ? (
-          <StyledButton variant="outlined" color="inherit" href={AUTH_URL}>
-            Login
-          </StyledButton>
+          <LoginButton variant={'outlined'} color={'inherit'} logout={logout} />
         ) : (
           <UserIcon toggleTheme={toggleTheme} logout={logout} />
         )}

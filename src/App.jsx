@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Box, Container, ThemeProvider } from '@mui/material';
 import getTheme from './theme';
 
-import Header from './components/Header';
+import Header from './components/header/Header';
 import CreatePlaylistForm from './components/CreatePlaylistForm';
 import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
