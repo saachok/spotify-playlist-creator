@@ -1,8 +1,18 @@
+import { useState, useEffect } from 'react';
 import { Typography, Stack, Paper } from '@mui/material';
 import LoginButton from './LoginButton';
 import UserIcon from './UserIcon';
+import { getUserAvatar } from '../../functions/requests';
 
-const Header = ({ code, logout, theme, setThemeMode }) => {
+const Header = ({ code, logout, theme, setThemeMode, accessToken }) => {
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    getUserAvatar(accessToken).then((res) => setAvatar('value'));
+  }, [accessToken]);
+
   const toggleTheme = () => {
     if (theme === 'dark') {
       window.localStorage.setItem('mode', 'light');
