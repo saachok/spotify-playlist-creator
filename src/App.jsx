@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AccessProvider } from './context/accessContext';
 
 import { Box, Container, ThemeProvider } from '@mui/material';
 import getTheme from './theme';
@@ -32,43 +33,45 @@ function App() {
   }, [themeMode]);
 
   return (
-    <ThemeProvider theme={getTheme(themeMode)}>
-      <Container
-        maxWidth="false"
-        disableGutters
-        sx={{
-          backgroundColor: 'primary.light',
-          height: '100vh',
-        }}
-      >
-        <Header
-          code={code}
-          theme={themeMode}
-          logout={() => setCode('')}
-          setThemeMode={setThemeMode}
-        />
-        <Box
+    <AccessProvider>
+      <ThemeProvider theme={getTheme(themeMode)}>
+        <Container
+          maxWidth="false"
+          disableGutters
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            backgroundColor: 'primary.light',
+            height: '100vh',
           }}
         >
-          {code ? (
-            <CreatePlaylistForm
-              code={code}
-              error={error}
-              setPlaylistID={setPlaylistID}
-              setLoading={setLoading}
-              setError={setError}
-            />
-          ) : null}
-          {loading ? <SearchModal /> : null}
-          {error ? <ErrorModal error={error} setError={setError} /> : null}
-          {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}
-        </Box>
-      </Container>
-    </ThemeProvider>
+          <Header
+            code={code}
+            theme={themeMode}
+            logout={() => setCode('')}
+            setThemeMode={setThemeMode}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            {code ? (
+              <CreatePlaylistForm
+                code={code}
+                error={error}
+                setPlaylistID={setPlaylistID}
+                setLoading={setLoading}
+                setError={setError}
+              />
+            ) : null}
+            {loading ? <SearchModal /> : null}
+            {error ? <ErrorModal error={error} setError={setError} /> : null}
+            {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </AccessProvider>
   );
 }
 

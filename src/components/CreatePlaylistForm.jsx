@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AccessContext } from '../context/accessContext.js';
 
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import StyledButton from './styled components/StyledButton.jsx';
 
 import { getPlaylistID, createPlaylist } from '../functions/requests.js';
 
-import useAuth from '../hooks/useAuth';
-
 const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
   const [playlistTitle, setPlaylistTitle] = useState('');
   const userInputField = document.querySelector('#outlined-basic');
-  const accessToken = useAuth(code);
+  const [accessToken, setAccessToken] = useContext(AccessContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();

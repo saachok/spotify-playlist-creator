@@ -7,7 +7,7 @@ import {
   SCOPES,
 } from '../../constants';
 
-const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
+const AUTH_URL = `${AUTH_ENDPOINT}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`;
 
 const LoginButton = ({ variant, color }) => {
   return (
