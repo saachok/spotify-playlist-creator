@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AccessContext } from '../context/accessContext.js';
 
 import { Box, TextField, Typography, Paper } from '@mui/material';
@@ -6,14 +6,20 @@ import StyledButton from './styled components/StyledButton.jsx';
 
 import { getPlaylistID, createPlaylist } from '../functions/requests.js';
 
-const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
-  const [playlistTitle, setPlaylistTitle] = useState('');
-  const userInputField = document.querySelector('#outlined-basic');
+const CreatePlaylistForm = ({
+  loading,
+  error,
+  setLoading,
+  setError,
+  setPlaylistID,
+}) => {
   const [accessToken, setAccessToken] = useContext(AccessContext);
+  const [playlistTitle, setPlaylistTitle] = useState('');
+  // const userInputField = document.querySelector('#outlined-basic');
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    userInputField.blur();
+    // userInputField.blur();
 
     setLoading(true);
     try {
@@ -29,10 +35,8 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
         message: error.message,
       });
     }
-
-    setLoading(false);
-
     setPlaylistTitle('');
+    setLoading(false);
   };
 
   return (
@@ -70,7 +74,7 @@ const CreatePlaylistForm = ({ code, setLoading, setError, setPlaylistID }) => {
           id="outlined-basic"
           label="Playlist title"
           color="secondary"
-          focused
+          focused={loading || error.status ? false : true}
           sx={{
             input: { color: 'primary.contrastText' },
             margin: '0.5rem',
