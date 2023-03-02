@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AccessContext } from './context/accessContext';
 
 import { Box, Container, ThemeProvider } from '@mui/material';
 import getTheme from './theme';
@@ -8,11 +9,10 @@ import CreatePlaylistForm from './components/CreatePlaylistForm';
 import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
 import EmbedPlayer from './components/EmbedPlayer';
+import { AUTH_ENDPOINT } from './constants';
 
 function App() {
-  const [code, setCode] = useState(
-    new URLSearchParams(window.location.search).get('code')
-  );
+  const [accessToken, setAccessToken] = useContext(AccessContext);
   const [themeMode, setThemeMode] = useState(
     window.localStorage.getItem('mode')
   );
@@ -42,9 +42,12 @@ function App() {
         }}
       >
         <Header
-          code={code}
           theme={themeMode}
-          logout={() => setCode('')}
+          logout={() => {
+            // TODO: Find a way to correctly logout user
+            window.history.go(`${AUTH_ENDPOINT}?show_dialog=true`);
+          }}
+          // logout={() => setAccessToken('')}
           setThemeMode={setThemeMode}
         />
         <Box
@@ -54,9 +57,9 @@ function App() {
             alignItems: 'center',
           }}
         >
-          {code ? (
+          {accessToken ? (
             <CreatePlaylistForm
-              code={code}
+              loading={loading}
               error={error}
               setPlaylistID={setPlaylistID}
               setLoading={setLoading}

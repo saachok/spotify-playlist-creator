@@ -1,8 +1,30 @@
+import { useState, useEffect, useContext } from 'react';
+import { AccessContext } from '../../context/accessContext';
+import useAuth from '../../hooks/useAuth';
+
 import { Typography, Stack, Paper } from '@mui/material';
 import LoginButton from './LoginButton';
 import UserIcon from './UserIcon';
+import { getUserAvatar } from '../../functions/requests';
 
-const Header = ({ code, logout, theme, setThemeMode }) => {
+const Header = ({ logout, theme, setThemeMode }) => {
+  const [accessToken, setAccessToken] = useContext(AccessContext);
+  const [avatar, setAvatar] = useState('');
+  const [code, setCode] = useState(
+    new URLSearchParams(window.location.search).get('code')
+  );
+  const accesTokenValue = useAuth(code);
+
+  useEffect(() => {
+    if (!accesTokenValue) return;
+    setAccessToken(accesTokenValue);
+  }, [accesTokenValue]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    getUserAvatar(accessToken).then((img) => setAvatar(img));
+  }, [accessToken]);
+
   const toggleTheme = () => {
     if (theme === 'dark') {
       window.localStorage.setItem('mode', 'light');
@@ -29,10 +51,10 @@ const Header = ({ code, logout, theme, setThemeMode }) => {
         }}
       >
         <Typography variant="h6">Spotify Playlist Creator</Typography>
-        {!code ? (
+        {!accessToken ? (
           <LoginButton variant={'outlined'} color={'inherit'} logout={logout} />
         ) : (
-          <UserIcon toggleTheme={toggleTheme} logout={logout} />
+          <UserIcon toggleTheme={toggleTheme} logout={logout} avatar={avatar} />
         )}
       </Stack>
     </Paper>
