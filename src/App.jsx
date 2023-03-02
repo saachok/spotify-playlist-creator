@@ -44,6 +44,7 @@ function App() {
         <Header
           theme={themeMode}
           logout={() => {
+            // TODO: Find a way to correctly logout user
             window.history.go(`${AUTH_ENDPOINT}?show_dialog=true`);
           }}
           // logout={() => setAccessToken('')}

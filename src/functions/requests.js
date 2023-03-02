@@ -14,7 +14,7 @@ export const createEmptyPlaylist = async (playlistTitle, accessToken) => {
     },
     body: JSON.stringify({
       name: playlistTitle,
-      description: 'Test description for playlist',
+      description: 'Your great playlist.',
 
       //FIXME: all playlists create in public mode
       public: false,
