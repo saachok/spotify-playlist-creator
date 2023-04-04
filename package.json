@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "^16.15.0"
   },
   "keywords": [],
   "author": "",
