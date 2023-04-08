@@ -5,6 +5,7 @@
   "main": "server.js",
   "proxy": "http://localhost:3001",
   "scripts": {
+    "devStart": "nodemon server.js",
     "start": "node server/server.js",
     "build": "cd client && npm install && npm run build"
   },
