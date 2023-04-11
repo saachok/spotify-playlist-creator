@@ -19,7 +19,7 @@ app.get('*', (req, res) => {
 app.post('/refresh', (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyWebApi = new SpotifyWebApi({
-    redirectUri: 'http://localhost:3000',
+    redirectUri: 'https://spotify-playlist-creator.onrender.com/',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken: refreshToken,
@@ -42,7 +42,7 @@ app.post('/refresh', (req, res) => {
 app.post('/login', (req, res) => {
   const code = req.body.code;
   const spotifyWebApi = new SpotifyWebApi({
-    redirectUri: 'http://localhost:3000',
+    redirectUri: 'https://spotify-playlist-creator.onrender.com/',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
   });
