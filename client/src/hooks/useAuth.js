@@ -6,8 +6,8 @@ export default function useAuth(code) {
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
 
-  const LOGIN_ENDPOINT = `${process.env.URL}/login`;
-  const REFRESH_ENDPOINT = `${process.env.URL}/refresh`;
+  const LOGIN_ENDPOINT = `${process.env.REACT_APP_URL}/login`;
+  const REFRESH_ENDPOINT = `${process.env.REACT_APP_URL}/refresh`;
 
   useEffect(() => {
     if (!code) return;
