@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -61,4 +62,4 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.listen(3001);
+app.listen(PORT);
