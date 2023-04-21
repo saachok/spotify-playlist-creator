@@ -10,6 +10,7 @@ import SearchModal from './components/modals/SearchModal';
 import ErrorModal from './components/modals/ErrorModal';
 import EmbedPlayer from './components/EmbedPlayer';
 import { AUTH_ENDPOINT } from './constants';
+import LoginModal from './components/modals/LoginModal';
 
 function App() {
   const [accessToken, setAccessToken] = useContext(AccessContext);
@@ -23,6 +24,10 @@ function App() {
     name: 'initial name',
     message: 'initial message',
   });
+
+  const logout = () => {
+    window.history.go(`${AUTH_ENDPOINT}?show_dialog=true`);
+  };
 
   useEffect(() => {
     if (!themeMode) {
@@ -43,10 +48,7 @@ function App() {
       >
         <Header
           theme={themeMode}
-          logout={() => {
-            // TODO: Find a way to correctly logout user
-            window.history.go(`${AUTH_ENDPOINT}?show_dialog=true`);
-          }}
+          logout={logout}
           // logout={() => setAccessToken('')}
           setThemeMode={setThemeMode}
         />
@@ -66,6 +68,7 @@ function App() {
               setError={setError}
             />
           ) : null}
+          {!accessToken ? <LoginModal logout={logout} /> : null}
           {loading ? <SearchModal /> : null}
           {error ? <ErrorModal error={error} setError={setError} /> : null}
           {playlistID ? <EmbedPlayer playlistID={playlistID} /> : null}

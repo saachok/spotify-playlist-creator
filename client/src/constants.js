@@ -1,4 +1,4 @@
-export const REDIRECT_URI = 'https://spotify-playlist-creator.onrender.com/';
+export const REDIRECT_URI = 'https://spotify-playlist-creator.onrender.com';
 export const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 export const RESPONSE_TYPE = 'code';
 export const SCOPES =
